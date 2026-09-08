@@ -56,7 +56,7 @@ class EDAAnalyzer:
 
       if series.empty:
         continue
-
+      #skew = 3(mean-median)/std
       skewness_results[column] = round(float(series.skew()), 4)
 
     return skewness_results
@@ -98,9 +98,7 @@ class EDAAnalyzer:
 
     for column in categorical_df.columns:
       value_counts = categorical_df[column].value_counts(dropna=False)
-
       total_count = len(categorical_df[column])
-
       rare_values = value_counts[(value_counts/total_count) < threshold]
 
       rare_results[column] = {
@@ -138,7 +136,7 @@ class EDAAnalyzer:
     return relationship_results
 
 
-  def get_categorical_relationships(self):
+  def get_categorical_relationships(self, max_categories=50):
     categorical_columns = self.df.select_dtypes(
       include=["object", "category"]
     ).columns
@@ -146,12 +144,21 @@ class EDAAnalyzer:
     if len(categorical_columns) < 2:
       return {}
 
+    usable_columns = [
+      column
+      for column in categorical_columns
+      if self.df[column].nunique(dropna=True) <= max_categories
+  ]
+
+    if len(usable_columns) < 2:
+      return {}
+
     relationship_results = {}
 
-    for i in range(len(categorical_columns)):
-      for j in range(i + 1, len(categorical_columns)):
-        column_1 = categorical_columns[i]
-        column_2 = categorical_columns[j]
+    for i in range(len(usable_columns)):
+      for j in range(i + 1, len(usable_columns)):
+        column_1 = usable_columns[i]
+        column_2 = usable_columns[j]
 
         cross_tab = pd.crosstab(
           self.df[column_1],
