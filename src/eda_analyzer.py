@@ -40,7 +40,7 @@ class EDAAnalyzer:
         "upper_bound": round(float(upper_bound), 4)
       }
 
-      return outlier_results
+    return outlier_results
 
 
   def get_skewness(self):
@@ -71,7 +71,7 @@ class EDAAnalyzer:
 
   #CATEGORICAL EDA
 
-  def get_value_frequencies(self):
+  def get_value_frequencies(self, max_categories=50, top_n=10):
     categorical_df = self.df.select_dtypes(
       include=["object", "category"]
     )
@@ -82,11 +82,24 @@ class EDAAnalyzer:
     frequency_results = {}
 
     for column in categorical_df.columns:
-      frequency_results[column] = (categorical_df[column].value_counts(dropna=False).to_dict())
+      # frequency_results[column] = (categorical_df[column].value_counts(dropna=False).to_dict())
+      unique_count = categorical_df[column].nunique(dropna=True)
+
+      if unique_count <= max_categories:
+        frequency_results[column] = (
+          categorical_df[column].value_counts(dropna=False).head(top_n).to_dict()
+        )
+
+      else:
+        frequency_results[column] = {
+          "high_cardinality": True,
+          "unique_count": int(unique_count),
+          "unique_ratio": round(unique_count/len(self.df), 4)
+        }
 
     return frequency_results
 
-  def get_rare_categories(self, threshold = 0.01):
+  def get_rare_categories(self, threshold = 0.01, max_categories = 50):
     categorical_df = self.df.select_dtypes(
       include=["object", "category"]
     )
@@ -97,6 +110,15 @@ class EDAAnalyzer:
     rare_results = {}
 
     for column in categorical_df.columns:
+      unique_count = categorical_df[column].nunique(dropna=True)
+
+      if unique_count > max_categories:
+        rare_results[column] = {
+          "high_cardinality": True,
+          "unique_count": int(unique_count)
+        }
+        continue
+
       value_counts = categorical_df[column].value_counts(dropna=False)
       total_count = len(categorical_df[column])
       rare_values = value_counts[(value_counts/total_count) < threshold]
@@ -108,7 +130,7 @@ class EDAAnalyzer:
 
     return rare_results
 
-  def get_numerical_categorical_relationships(self):
+  def get_numerical_categorical_relationships(self, max_categories = 50):
 
     numerical_columns = self.df.select_dtypes(
       include=["number"]
@@ -121,9 +143,18 @@ class EDAAnalyzer:
     if len(numerical_columns) == 0 or len(categorical_columns) == 0:
       return {}
 
+    usable_categorical_columns = [
+      column
+      for column in categorical_columns
+      if self.df[column].nunique(dropna=True) <= max_categories
+    ]
+
+    if len(usable_categorical_columns) ==0:
+      return {}
+
     relationship_results = {}
 
-    for categorical_column in categorical_columns:
+    for categorical_column in usable_categorical_columns:
       relationship_results[categorical_column] = {}
       for numerical_column in numerical_columns:
         grouped = (
