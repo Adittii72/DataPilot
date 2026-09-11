@@ -4,7 +4,7 @@
 
 ## Live Demo
 
-**[Try PRISM Live](data-pilot-maek7qbbm-aditi-shrimankars-projects.vercel.app)**
+**[Try PRISM Live](https://data-pilot-maek7qbbm-aditi-shrimankars-projects.vercel.app/)**
 
 ---
 
