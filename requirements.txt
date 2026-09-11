@@ -1,0 +1,19 @@
+# Data Science
+pandas
+numpy
+
+# FastAPI Data Science Service
+fastapi
+uvicorn
+python-multipart
+pydantic
+
+# Django Backend
+django
+gunicorn
+
+# Django → FastAPI communication
+httpx
+
+# Testing
+pytest
