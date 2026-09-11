@@ -1,8 +1,14 @@
 import httpx
+import os
 
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+
+FASTAPI_URL = os.getenv(
+  "FASTAPI_URL",
+  "http://127.0.0.1:8001"
+)
 
 
 
@@ -37,7 +43,7 @@ def analyze_dataset(request):
 
   try:
     response = httpx.post(
-      "http://127.0.0.1:8001/analyze/",
+      f"{FASTAPI_URL}/analyze/",
       files = {
         "file": (
           uploaded_file.name,
@@ -79,7 +85,7 @@ def visualize_dataset(request):
 
   try:
     response = httpx.post(
-      "http://127.0.0.1:8001/visualize/",
+      f"{FASTAPI_URL}/visualize/",
       json=data,
       timeout=60.0
     )
