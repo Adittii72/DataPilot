@@ -566,28 +566,6 @@ Special attention was given to datasets containing high-cardinality categorical 
 
 ---
 
-## Future Improvements
-
-Potential future improvements include:
-
-- JWT authentication
-- PostgreSQL database integration
-- Persistent user accounts
-- Dataset history
-- Saved analysis results
-- Persistent dataset storage
-- Machine-learning workflows
-- Automatic problem-type detection
-- Feature engineering
-- Automated preprocessing
-- Model training and comparison
-- Model evaluation
-- Additional visualization types
-- Exportable analysis reports
-- Support for larger datasets
-
----
-
 ## What I Learned Building PRISM
 
 PRISM was built to understand how a real data-science application works beyond individual Jupyter notebooks.
