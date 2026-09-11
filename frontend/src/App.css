@@ -2390,6 +2390,410 @@
   background: var(--accent-gradient-hover);
 }
 
+/* ==========================================================================
+   VISUALIZATION SECTION (PRISM Chart.js Engine)
+   ========================================================================== */
+
+.visualization-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.viz-header-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 24px 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.viz-header-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100%;
+  background: radial-gradient(circle at top left, rgba(168, 85, 247, 0.12), transparent 70%);
+  pointer-events: none;
+}
+
+.viz-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(168, 85, 247, 0.15);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--text-accent);
+  margin-bottom: 8px;
+}
+
+.viz-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.viz-subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 800px;
+}
+
+.viz-controls-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.viz-controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) auto;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.viz-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.viz-field-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.viz-select-wrap {
+  position: relative;
+}
+
+.viz-select {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  padding: 10px 14px;
+  font-size: 13px;
+  outline: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.viz-select:hover {
+  border-color: var(--border-medium);
+  background: var(--bg-surface-elevated);
+}
+
+.viz-select:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.2);
+}
+
+.viz-select option {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.viz-action-group {
+  display: flex;
+  align-items: flex-end;
+}
+
+.viz-generate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-gradient);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.35);
+  white-space: nowrap;
+  height: 42px;
+}
+
+.viz-generate-btn:hover:not(:disabled) {
+  background: var(--accent-gradient-hover);
+  box-shadow: 0 6px 18px rgba(168, 85, 247, 0.5);
+  transform: translateY(-1px);
+}
+
+.viz-generate-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.viz-validation-notice {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--warning);
+  padding: 6px 10px;
+  background: var(--warning-surface);
+  border-radius: var(--radius-sm);
+  width: fit-content;
+}
+
+.viz-canvas-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.viz-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 70px 20px;
+  text-align: center;
+  gap: 14px;
+  margin: auto;
+}
+
+.viz-empty-icon-wrap {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: rgba(168, 85, 247, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-primary);
+  margin-bottom: 4px;
+}
+
+.viz-empty-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.viz-empty-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  max-width: 520px;
+  line-height: 1.5;
+}
+
+.viz-guidance-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.guidance-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.guidance-pill svg {
+  color: var(--accent-primary);
+}
+
+.viz-loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 90px 20px;
+  text-align: center;
+  gap: 12px;
+  margin: auto;
+}
+
+.viz-loading-bubble {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(168, 85, 247, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.viz-loading-heading {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.viz-loading-subtext {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.viz-error-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #fca5a5;
+  margin-bottom: 16px;
+}
+
+.viz-error-icon {
+  color: var(--danger);
+  display: flex;
+  align-items: center;
+}
+
+.viz-error-content {
+  flex: 1;
+}
+
+.viz-error-content strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.viz-error-content p {
+  font-size: 12px;
+  color: #fca5a5;
+}
+
+.viz-error-retry-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.viz-error-retry-btn:hover {
+  background: rgba(239, 68, 68, 0.35);
+}
+
+.viz-rendered-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.viz-meta-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.viz-meta-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.viz-chart-type-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(168, 85, 247, 0.15);
+  color: var(--text-accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.viz-col-pair {
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.viz-count-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--bg-surface);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.viz-chart-viewport {
+  position: relative;
+  width: 100%;
+  height: 440px;
+  min-height: 380px;
+}
+
+.viz-footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.viz-footer-tip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
 @media (max-width: 1024px) {
   .dashboard-frame {
     flex-direction: column;
@@ -2420,5 +2824,18 @@
   }
   .help-grid {
     grid-template-columns: 1fr;
+  }
+  .viz-controls-grid {
+    grid-template-columns: 1fr;
+  }
+  .viz-action-group {
+    width: 100%;
+  }
+  .viz-generate-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .viz-chart-viewport {
+    height: 360px;
   }
 }

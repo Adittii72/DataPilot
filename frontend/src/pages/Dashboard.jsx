@@ -5,6 +5,7 @@ import OverviewView from './OverviewView';
 import DataQualityView from './DataQualityView';
 import StatisticsView from './StatisticsView';
 import EdaView from './EdaView';
+import VisualizationSection from '../components/VisualizationSection';
 import SettingsModal from '../components/SettingsModal';
 import HelpModal from '../components/HelpModal';
 
@@ -44,6 +45,10 @@ export default function Dashboard({
         <main className="dashboard-content-scroll">
           {activeTab === 'overview' && (
             <OverviewView analysis={analysis} insights={insights} />
+          )}
+
+          {activeTab === 'visualize' && (
+            <VisualizationSection analysis={analysis} filename={filename} />
           )}
 
           {activeTab === 'quality' && (

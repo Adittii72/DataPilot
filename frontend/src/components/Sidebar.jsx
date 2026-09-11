@@ -1,8 +1,9 @@
-import { LayoutDashboard, ShieldCheck, BarChart2, Sparkles, Settings, HelpCircle, Database } from 'lucide-react';
+import { LayoutDashboard, ShieldCheck, BarChart2, Sparkles, Settings, HelpCircle, Database, LineChart } from 'lucide-react';
 
 export default function Sidebar({ activeTab, onTabChange, onOpenSettings, onOpenHelp, filename }) {
   const navItems = [
     { id: 'overview', label: 'Overview', icon: LayoutDashboard },
+    { id: 'visualize', label: 'Visualizations', icon: LineChart },
     { id: 'quality', label: 'Data Quality', icon: ShieldCheck },
     { id: 'statistics', label: 'Statistics', icon: BarChart2 },
     { id: 'eda', label: 'EDA', icon: Sparkles },
