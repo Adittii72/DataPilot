@@ -27,7 +27,9 @@ FASTAPI_URL = os.getenv(
 
 # Hosts
 ALLOWED_HOSTS = [
-  os.getenv("RENDER_EXTERNAL_HOSTNAME", "localhost")
+  "localhost", 
+  "127.0.0.1",
+  os.getenv("RENDER_EXTERNAL_HOSTNAME" )
 ]
 
 

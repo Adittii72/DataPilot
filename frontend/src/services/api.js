@@ -1,3 +1,6 @@
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 export async function analyzeDataset(file) {
   if (!file) {
     throw new Error('No file provided for analysis');
@@ -14,7 +17,7 @@ export async function analyzeDataset(file) {
     });
   } catch {
     try {
-      response = await fetch('http://127.0.0.1:8000/api/analyze/', {
+      response = await fetch(`${API_URL}/api/analyze/`, {
         method: 'POST',
         body: formData,
       });
@@ -84,7 +87,7 @@ export async function fetchVisualization({ filename, column_1, column_2, chart_t
     });
   } catch {
     try {
-      response = await fetch('http://127.0.0.1:8000/api/visualize/', {
+      response = await fetch(`${API_URL}/api/visualize/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
