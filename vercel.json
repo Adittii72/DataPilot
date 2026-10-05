@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://prism-django-2y0k.onrender.com/api/$1"
+    }
+  ]
+}

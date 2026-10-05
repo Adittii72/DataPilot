@@ -1,4 +1,5 @@
-const RAW_API_URL = import.meta.env.VITE_API_URL || '';
+const DEFAULT_PROD_BACKEND = 'https://prism-django-2y0k.onrender.com';
+const RAW_API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? DEFAULT_PROD_BACKEND : '');
 const API_BASE = RAW_API_URL.replace(/\/+$/, '');
 
 function buildEndpointUrl(path) {
