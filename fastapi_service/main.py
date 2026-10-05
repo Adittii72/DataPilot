@@ -14,7 +14,17 @@ from src.data_loader import load_csv
 from src.serialization import make_json_serializable
 from src.visualization_analyzer import VisualizationAnalyzer
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI(title="PRISM Data Science Service")
+
+app.add_middleware(
+  CORSMiddleware,
+  allow_origins=["*"],
+  allow_credentials=True,
+  allow_methods=["*"],
+  allow_headers=["*"],
+)
 
 
 def resolve_dataset_path(filename: str) -> str:
@@ -47,6 +57,8 @@ def resolve_dataset_path(filename: str) -> str:
 
 @app.get("/health")
 @app.get("/health/")
+@app.get("/api/health")
+@app.get("/api/health/")
 def health_check():
   return {
     "status": "success",
@@ -56,6 +68,8 @@ def health_check():
 
 @app.post("/analyze/", response_model=AnaLysisResponse)
 @app.post("/analyze", response_model=AnaLysisResponse)
+@app.post("/api/analyze/", response_model=AnaLysisResponse)
+@app.post("/api/analyze", response_model=AnaLysisResponse)
 async def analyze_dataset(file: UploadFile = File(...)):
   if not file.filename.lower().endswith(".csv"):
     raise HTTPException(
@@ -101,6 +115,8 @@ async def analyze_dataset(file: UploadFile = File(...)):
 
 @app.post("/visualize/", response_model=VisualizationResponse)
 @app.post("/visualize", response_model=VisualizationResponse)
+@app.post("/api/visualize/", response_model=VisualizationResponse)
+@app.post("/api/visualize", response_model=VisualizationResponse)
 async def generate_visualization(request: VisualizationRequest):
   # 1. Validate non-empty fields
   if not request.filename or not request.filename.strip():

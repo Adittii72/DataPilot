@@ -11,6 +11,7 @@ pydantic
 # Django Backend
 django
 gunicorn
+django-cors-headers
 
 # Django → FastAPI communication
 httpx
